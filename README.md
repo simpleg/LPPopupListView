@@ -21,12 +21,12 @@ If you are using LPPopupListView in your non-arc project, you will need to set a
 
 To set a compiler flag in Xcode, go to your active target and select the "Build Phases" tab. Now select all LPPopupListView source files, press Enter, insert `-fobjc-arc` and then "Done" to disable ARC for LPPopupListView.
 
-#Uses Frameworks:
+#Uses Frameworks
 
 * UIKit.framework
 * Foundation.framework
 
-####Delegate methods
+#Delegate methods
 
 ```objective-c
 - (void)popupListView:(LPPopupListView *)popupListView didSelectedIndex:(NSInteger)index;
