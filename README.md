@@ -7,13 +7,13 @@ LPPopupListView is custom popup component for iOS with table for single or multi
 Created by Luka Penger
 http://lukapenger.eu
 
-#Usage
+##Usage
 
 If you'd like to include this component as a pod using CocoaPods, just add the following line to your Podfile:
 
 `pod "LPPopupListView"`
 
-#ARC
+##ARC
 
 LPPopupListView uses ARC (Automatic Reference Counting).
 
@@ -21,12 +21,12 @@ If you are using LPPopupListView in your non-arc project, you will need to set a
 
 To set a compiler flag in Xcode, go to your active target and select the "Build Phases" tab. Now select all LPPopupListView source files, press Enter, insert `-fobjc-arc` and then "Done" to disable ARC for LPPopupListView.
 
-#Uses Frameworks
+##Uses Frameworks
 
 * UIKit.framework
 * Foundation.framework
 
-#Delegate methods
+##Delegate methods
 
 ```objective-c
 - (void)popupListView:(LPPopupListView *)popupListView didSelectedIndex:(NSInteger)index;
