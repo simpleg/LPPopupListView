@@ -42,6 +42,7 @@
 
 @implementation LPPopupListView
 
+
 #define navigationBarHeight 44.0f
 #define separatorLineHeight 1.0f
 #define closeButtonWidth 44.0f
@@ -49,6 +50,7 @@
 #define animationsDuration 0.25f
 
 static BOOL isShown = false;
+
 
 #pragma mark - Lifecycle
 
@@ -162,7 +164,7 @@ static BOOL isShown = false;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (self.isMultipleSelection) {
         if ([self.selectedList containsObject:[self.arrayList objectAtIndex:indexPath.row]]) {
@@ -173,10 +175,12 @@ static BOOL isShown = false;
         
         [self.tableView reloadData];
     } else {
+        isShown = false;
+        
         if ([self.delegate respondsToSelector:@selector(popupListView:didSelectedIndex:)]) {
             [self.delegate popupListView:self didSelectedIndex:indexPath.row];
         }
-
+        
         [self hideAnimated:self.closeAnimated];
     }
 }
@@ -186,6 +190,9 @@ static BOOL isShown = false;
 - (void)showInView:(UIView *)view animated:(BOOL)animated
 {
     if(!isShown) {
+        isShown = true;
+        self.closeAnimated = animated;
+        
         if(animated) {
             self.alpha = 0.0f;
             [view addSubview:self];
@@ -196,30 +203,35 @@ static BOOL isShown = false;
         } else {
             [view addSubview:self];
         }
-        
-        isShown = true;
-        self.closeAnimated = animated;
     }
 }
 
 - (void)hideAnimated:(BOOL)animated
 {
-    if(self.isMultipleSelection) {
-        if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedList:)]) {
-            [self.delegate popupListViewDidHide:self selectedList:self.selectedList];
-        }
-    }
-    
     if(animated) {
         [UIView animateWithDuration:animationsDuration animations:^{
             self.alpha = 0.0f;
         } completion:^(BOOL finished) {
-            [self removeFromSuperview];
             isShown = false;
+            
+            if(self.isMultipleSelection) {
+                if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedList:)]) {
+                    [self.delegate popupListViewDidHide:self selectedList:self.selectedList];
+                }
+            }
+            
+            [self removeFromSuperview];
         }];
     } else {
-        [self removeFromSuperview];
         isShown = false;
+        
+        if(self.isMultipleSelection) {
+            if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedList:)]) {
+                [self.delegate popupListViewDidHide:self selectedList:self.selectedList];
+            }
+        }
+        
+        [self removeFromSuperview];
     }
 }
 

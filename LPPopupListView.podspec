@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LPPopupListView"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "LPPopupListView is custom popup component for iOS with table for single or multiple selection."
   s.description  = <<-DESC
                     LPPopupListView is custom popup component for iOS with table for single or multiple selection.
