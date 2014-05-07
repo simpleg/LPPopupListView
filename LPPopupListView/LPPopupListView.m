@@ -30,6 +30,13 @@
 #import "LPPopupListView.h"
 
 
+#define navigationBarHeight 44.0f
+#define separatorLineHeight 1.0f
+#define closeButtonWidth 44.0f
+#define navigationBarTitlePadding 12.0f
+#define animationsDuration 0.25f
+
+
 @interface LPPopupListView ()
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -42,33 +49,23 @@
 
 @implementation LPPopupListView
 
-
-#define navigationBarHeight 44.0f
-#define separatorLineHeight 1.0f
-#define closeButtonWidth 44.0f
-#define navigationBarTitlePadding 12.0f
-#define animationsDuration 0.25f
-
 static BOOL isShown = false;
-
 
 #pragma mark - Lifecycle
 
-- (id)initWithTitle:(NSString *)title list:(NSArray *)list selectedList:(NSArray *)selectedItemsList point:(CGPoint)point size:(CGSize)size multipleSelection:(BOOL)multipleSelection
+- (id)initWithTitle:(NSString *)title list:(NSArray *)list selectedIndexes:(NSIndexSet *)selectedList point:(CGPoint)point size:(CGSize)size multipleSelection:(BOOL)multipleSelection
 {
     CGRect frame = CGRectMake(point.x, point.y,size.width,size.height);
     
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-
         self.backgroundColor = [UIColor colorWithRed:(0.0/255.0) green:(108.0/255.0) blue:(192.0/255.0) alpha:0.7];
         
         self.cellHighlightColor = [UIColor colorWithRed:(0.0/255.0) green:(60.0/255.0) blue:(127.0/255.0) alpha:0.5f];
         
         self.navigationBarTitle = title;
         self.arrayList = [NSArray arrayWithArray:list];
-        self.selectedList = [NSMutableArray arrayWithArray:selectedItemsList];
+        self.selectedIndexes = [[NSMutableIndexSet alloc] initWithIndexSet:selectedList];
         self.isMultipleSelection = multipleSelection;
 
         self.navigationBarView = [[UIView alloc] init];
@@ -150,7 +147,7 @@ static BOOL isShown = false;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (self.isMultipleSelection) {
-        if ([self.selectedList containsObject:[self.arrayList objectAtIndex:indexPath.row]]) {
+        if ([self.selectedIndexes containsIndex:indexPath.row]) {
             cell.rightImageView.image = [UIImage imageNamed:@"checkMark"];
         } else {
             cell.rightImageView.image = nil;
@@ -167,18 +164,18 @@ static BOOL isShown = false;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (self.isMultipleSelection) {
-        if ([self.selectedList containsObject:[self.arrayList objectAtIndex:indexPath.row]]) {
-            [self.selectedList removeObject:[self.arrayList objectAtIndex:indexPath.row]];
+        if ([self.selectedIndexes containsIndex:indexPath.row]) {
+            [self.selectedIndexes removeIndex:indexPath.row];
         } else {
-            [self.selectedList addObject:[self.arrayList objectAtIndex:indexPath.row]];
+            [self.selectedIndexes addIndex:indexPath.row];
         }
-        
+
         [self.tableView reloadData];
     } else {
         isShown = false;
         
-        if ([self.delegate respondsToSelector:@selector(popupListView:didSelectedIndex:)]) {
-            [self.delegate popupListView:self didSelectedIndex:indexPath.row];
+        if ([self.delegate respondsToSelector:@selector(popupListView:didSelectIndex:)]) {
+            [self.delegate popupListView:self didSelectIndex:indexPath.row];
         }
         
         [self hideAnimated:self.closeAnimated];
@@ -208,15 +205,15 @@ static BOOL isShown = false;
 
 - (void)hideAnimated:(BOOL)animated
 {
-    if(animated) {
+    if (animated) {
         [UIView animateWithDuration:animationsDuration animations:^{
             self.alpha = 0.0f;
         } completion:^(BOOL finished) {
             isShown = false;
             
-            if(self.isMultipleSelection) {
-                if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedList:)]) {
-                    [self.delegate popupListViewDidHide:self selectedList:self.selectedList];
+            if (self.isMultipleSelection) {
+                if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedIndexes:)]) {
+                    [self.delegate popupListViewDidHide:self selectedIndexes:self.selectedIndexes];
                 }
             }
             
@@ -225,9 +222,9 @@ static BOOL isShown = false;
     } else {
         isShown = false;
         
-        if(self.isMultipleSelection) {
-            if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedList:)]) {
-                [self.delegate popupListViewDidHide:self selectedList:self.selectedList];
+        if (self.isMultipleSelection) {
+            if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedIndexes:)]) {
+                [self.delegate popupListViewDidHide:self selectedIndexes:self.selectedIndexes];
             }
         }
         

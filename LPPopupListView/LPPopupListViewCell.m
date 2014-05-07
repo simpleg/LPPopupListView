@@ -30,9 +30,10 @@
 #import "LPPopupListViewCell.h"
 
 
-@implementation LPPopupListViewCell
-
 #define rightImageViewWidth 44.0f
+
+
+@implementation LPPopupListViewCell
 
 #pragma mark - Lifecycle
 
@@ -53,11 +54,16 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    self.imageView.frame = CGRectOffset(self.imageView.frame, 6, 0);
+
     self.textLabel.frame = CGRectOffset(self.textLabel.frame, 6, 0);
     
     self.rightImageView.frame = CGRectMake((self.frame.size.width - rightImageViewWidth), 0.0f, rightImageViewWidth, self.frame.size.height);
+    
+    if (self.rightImageView.image) {
+        CGRect textLabelFrame = self.textLabel.frame;
+        textLabelFrame.size.width -= (16.0f * [[UIScreen mainScreen] scale]);
+        self.textLabel.frame = textLabelFrame;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -76,7 +82,7 @@
 
 - (void)selection:(BOOL)select
 {
-    if(select) {
+    if (select) {
         self.backgroundColor = self.highlightColor;
     } else {
         self.backgroundColor = [UIColor clearColor];

@@ -36,7 +36,7 @@
 @interface LPPopupListView : UIView <UITableViewDataSource,UITableViewDelegate> 
 
 @property (nonatomic, weak) id <LPPopupListViewDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *selectedList;
+@property (nonatomic, strong) NSMutableIndexSet *selectedIndexes;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UIView *navigationBarView;
@@ -44,7 +44,7 @@
 @property (nonatomic, assign) BOOL closeAnimated;
 @property (nonatomic, strong) UIColor *cellHighlightColor;
 
-- (id)initWithTitle:(NSString *)title list:(NSArray *)list selectedList:(NSArray *)selectedItemsList point:(CGPoint)point size:(CGSize)size multipleSelection:(BOOL)multipleSelection;
+- (id)initWithTitle:(NSString *)title list:(NSArray *)list selectedIndexes:(NSIndexSet *)selectedList point:(CGPoint)point size:(CGSize)size multipleSelection:(BOOL)multipleSelection;
 - (void)showInView:(UIView *)view animated:(BOOL)animated;
 - (void)hideAnimated:(BOOL)animated;
 
@@ -57,7 +57,7 @@
 
 @optional
 
-- (void)popupListView:(LPPopupListView *)popupListView didSelectedIndex:(NSInteger)index;
-- (void)popupListViewDidHide:(LPPopupListView *)popupListView selectedList:(NSArray *)list;
+- (void)popupListView:(LPPopupListView *)popupListView didSelectIndex:(NSInteger)index;
+- (void)popupListViewDidHide:(LPPopupListView *)popupListView selectedIndexes:(NSIndexSet *)selectedIndexes;
 
 @end

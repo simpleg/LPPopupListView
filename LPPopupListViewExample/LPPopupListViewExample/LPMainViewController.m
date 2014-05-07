@@ -11,7 +11,7 @@
 
 @interface LPMainViewController ()
 
-@property (nonatomic, strong) NSMutableArray *selectedList;
+@property (nonatomic, strong) NSMutableIndexSet *selectedIndexes;
 
 @end
 
@@ -39,7 +39,7 @@
     CGPoint point = CGPointMake(paddingLeftRight, (self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + paddingTopBottom);
     CGSize size = CGSizeMake((self.view.frame.size.width - (paddingLeftRight * 2)), self.view.frame.size.height - ((self.navigationController.navigationBar.frame.size.height + paddingTopBottom) + (paddingTopBottom * 2)));
     
-    LPPopupListView *listView = [[LPPopupListView alloc] initWithTitle:@"List View" list:[self list] selectedList:self.selectedList point:point size:size multipleSelection:YES];
+    LPPopupListView *listView = [[LPPopupListView alloc] initWithTitle:@"List View" list:[self list] selectedIndexes:self.selectedIndexes point:point size:size multipleSelection:YES];
     listView.delegate = self;
     
     [listView showInView:self.navigationController.view animated:YES];
@@ -47,18 +47,21 @@
 
 #pragma mark - LPPopupListViewDelegate
 
-- (void)popupListView:(LPPopupListView *)popUpListView didSelectedIndex:(NSInteger)index
+- (void)popupListView:(LPPopupListView *)popUpListView didSelectIndex:(NSInteger)index
 {
-    NSLog(@"popUpListView - didSelectedIndex: %d", index);
+    NSLog(@"popUpListView - didSelectIndex: %d", index);
 }
 
-- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedList:(NSArray *)list
+- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedIndexes:(NSIndexSet *)selectedIndexes
 {
-    NSLog(@"popupListViewDidHide - selectedList: %@", list.description);
+    NSLog(@"popupListViewDidHide - selectedIndexes: %@", selectedIndexes.description);
     
-    self.selectedList = [NSMutableArray arrayWithArray:list];
-    
-    self.textView.text = self.selectedList.description;
+    self.selectedIndexes = [[NSMutableIndexSet alloc] initWithIndexSet:selectedIndexes];
+
+    self.textView.text = @"";
+    [selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        self.textView.text = [self.textView.text stringByAppendingFormat:@"%@\n", [[self list] objectAtIndex:idx]];
+    }];
 }
 
 #pragma mark - Array List

@@ -2,7 +2,7 @@
 
 LPPopupListView is custom popup component for iOS with table for single or multiple selection.
 
-![ScreenShots](ScreenShots/img1.png)
+[![ScreenShots](ScreenShots/img1-thumb.png)](ScreenShots/img1.png)
 
 Created by Luka Penger
 http://lukapenger.eu
@@ -29,8 +29,8 @@ To set a compiler flag in Xcode, go to your active target and select the "Build 
 ##Delegate methods
 
 ```objective-c
-- (void)popupListView:(LPPopupListView *)popupListView didSelectedIndex:(NSInteger)index;
-- (void)popupListViewDidHide:(LPPopupListView *)popupListView selectedList:(NSArray *)list;
+- (void)popupListView:(LPPopupListView *)popupListView didSelectIndex:(NSInteger)index;
+- (void)popupListViewDidHide:(LPPopupListView *)popupListView selectedIndexes:(NSIndexSet *)selectedIndexes;
 ```
 
 ```objective-c
@@ -38,12 +38,12 @@ To set a compiler flag in Xcode, go to your active target and select the "Build 
 
 - (void)popupListView:(LPPopupListView *)popUpListView didSelectedIndex:(NSInteger)index
 {
-    NSLog(@"popUpListView - didSelectedIndex: %d", index);
+    NSLog(@"popUpListView - didSelectIndex: %d", index);
 }
 
-- (void)popupListViewDidHide:(LPPopupListView *)popUpListView selectedList:(NSArray *)list
+- (void)popupListViewDidHide:(LPPopupListView *)popupListView selectedIndexes:(NSIndexSet *)selectedIndexes
 {
-    NSLog(@"popupListViewDidHide - selectedList: %@", list.description);
+    NSLog(@"popupListViewDidHide - selectedIndexes: %@", selectedIndexes.description);
 }
 ```
 
