@@ -10,31 +10,43 @@
 	<string>LPPopupListViewExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>72716F31-5BDA-4227-A486-8F00444C8DAE</key>
-		<string>https://github.com/luka1995/LPThreeSplitViewController.git</string>
+		<key>1BFCFC960BA0388B853F82F3F22AECEE8F44E52A</key>
+		<string>https://github.com/luka1995/LPPopupListView.git</string>
+		<key>A385563E61E0E8B7D83811CF14F5CC2E933AA080</key>
+		<string>https://bitbucket.org/simpleg06/bronzble.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>LPPopupListView/LPPopupListViewExample/LPPopupListViewExample.xcodeproj/project.xcworkspace</string>
+	<string>LPPopupListViewExample/LPPopupListViewExample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>72716F31-5BDA-4227-A486-8F00444C8DAE</key>
-		<string>../../../..</string>
+		<key>1BFCFC960BA0388B853F82F3F22AECEE8F44E52A</key>
+		<string>../../..</string>
+		<key>A385563E61E0E8B7D83811CF14F5CC2E933AA080</key>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/luka1995/LPThreeSplitViewController.git</string>
+	<string>https://github.com/luka1995/LPPopupListView.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>72716F31-5BDA-4227-A486-8F00444C8DAE</string>
+	<string>1BFCFC960BA0388B853F82F3F22AECEE8F44E52A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>72716F31-5BDA-4227-A486-8F00444C8DAE</string>
+			<string>A385563E61E0E8B7D83811CF14F5CC2E933AA080</string>
 			<key>IDESourceControlWCCName</key>
-			<string>GitHub</string>
+			<string>..</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1BFCFC960BA0388B853F82F3F22AECEE8F44E52A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LPPopupListView</string>
 		</dict>
 	</array>
 </dict>
