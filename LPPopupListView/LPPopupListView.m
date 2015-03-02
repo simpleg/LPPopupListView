@@ -215,6 +215,10 @@ static BOOL isShown = false;
                 if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedIndexes:)]) {
                     [self.delegate popupListViewDidHide:self selectedIndexes:self.selectedIndexes];
                 }
+            } else {
+                if ([self.delegate respondsToSelector:@selector(popupListViewDidHide:selectedIndexes:)]) {
+                    [self.delegate popupListViewDidHide:self selectedIndexes:self.selectedIndexes];
+                }
             }
             
             [self removeFromSuperview];
